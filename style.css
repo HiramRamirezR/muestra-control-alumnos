@@ -1,0 +1,104 @@
+body {
+    font-size: small;
+}
+
+img {
+    width: 23%;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.h2-formulario {
+    font-weight: bold;
+    font-size: large;
+}
+
+.parentesis {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+h3 {
+    /* font-weight: bold; */
+    font-size: medium;
+}
+
+.form-control {
+    font-size: small;
+    border: none;
+    border-bottom: 1px solid #000000;
+    border-radius: 0;
+}
+
+.form-group {
+    margin-bottom: 0px; /* Reducir el espacio entre grupos de formulario */
+}
+
+.form-row {
+    margin-bottom: 0px; /* Reducir el espacio entre filas de formulario */
+}
+
+.form-check {
+    margin-bottom: 0px; /* Reducir el espacio entre elementos de selección */
+}
+
+td {
+    height: 70px;
+}
+
+.read {
+    background-color: white !important;
+}
+
+.cuadro {
+    width: 25px;
+    height: 25px;
+    border: 1px solid black;
+    margin-left: 20px;
+}
+
+label {
+    white-space: nowrap;
+    font-size:smaller;
+  }
+
+.mdk {
+    font-family: "cooper black";
+}
+
+.cuadro-tabla-titulo {
+    width: 200px;
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.cuadro-tabla {
+    width: 200px;
+    height: 70px;
+    border: 1px solid black;
+    border-radius: 15px;
+}
+
+.texto-pequeno {
+    font-size: x-small;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: medium;
+    margin: 6px;
+    border: 1px solid rgb(119, 119, 119);
+    border-radius: 3px;
+    padding: 5px;
+}
+
+#searchInput {
+    font-size: large;
+    width: 100%;
+}
