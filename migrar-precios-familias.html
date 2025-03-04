@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Migración de Precios de Familias</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Migración de Precios de Familias</h1>
+        <p>Esta herramienta ayudará a actualizar los precios de todas las familias existentes.</p>
+        <button id="migrarPrecios" class="btn btn-primary">Migrar Precios</button>
+        <div id="resultados" class="mt-3"></div>
+    </div>
+
+    <script type="module">
+        import app from './firebaseConfig.js';
+        import { getDatabase, ref, get, update } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+        import { determinarPrecioPorMiembros, determinarPlanPorMiembros } from './utils-precios.js';
+
+        const database = getDatabase(app);
+        const familiasRef = ref(database, 'familias');
+
+        document.getElementById('migrarPrecios').addEventListener('click', async () => {
+            try {
+                // Obtener todas las familias
+                const snapshot = await get(familiasRef);
+                const familias = snapshot.val();
+
+                if (!familias) {
+                    Swal.fire('Error', 'No se encontraron familias para migrar.', 'error');
+                    return;
+                }
+
+                const updates = {};
+                let familiasMigradas = 0;
+
+                // Iterar sobre cada familia
+                Object.entries(familias).forEach(([familiaId, familia]) => {
+                    // Contar número de miembros
+                    const miembros = familia.miembros || [];
+                    const nuevoMonto = determinarPrecioPorMiembros(miembros);
+                    const nuevoPlan = determinarPlanPorMiembros(miembros);
+
+                    // Preparar actualización
+                    updates[`/familias/${familiaId}/monto_mensual`] = nuevoMonto;
+                    updates[`/familias/${familiaId}/plan_pago`] = nuevoPlan;
+
+                    familiasMigradas++;
+                });
+
+                // Aplicar actualizaciones
+                if (Object.keys(updates).length > 0) {
+                    await update(ref(database), updates);
+
+                    const resultadosDiv = document.getElementById('resultados');
+                    resultadosDiv.innerHTML = `
+                        <div class="alert alert-success">
+                            Migración completada. ${familiasMigradas} familias actualizadas.
+                        </div>
+                    `;
+
+                    Swal.fire('Éxito', `${familiasMigradas} familias han sido actualizadas.`, 'success');
+                } else {
+                    Swal.fire('Información', 'No se requirieron actualizaciones.', 'info');
+                }
+
+            } catch (error) {
+                console.error('Error en la migración:', error);
+                Swal.fire('Error', 'Ocurrió un error durante la migración de precios.', 'error');
+            }
+        });
+    </script>
+</body>
+</html>

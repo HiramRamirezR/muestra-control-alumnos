@@ -178,7 +178,11 @@
 
                 <div class="form-group col-md-12 d-flex">
                     <label for="dojang">DOYANG AL QUE PERTENECE:</label>
-                    <input type="text" class="form-control read" id="dojang" placeholder="INGRESE NOMBRE DEL DOYANG">
+                    <select class="form-control" id="dojang" required>
+                        <option value="" disabled selected>SELECCIONE EL DOYANG</option>
+                        <option value="moodukkwan oriente">MOODUKKWAN ORIENTE</option>
+                        <option value="moodukkwan center">MOODUKKWAN CENTER</option>
+                    </select>
                 </div>
                 
             </div>
@@ -187,7 +191,7 @@
 
                 <div class="form-group col-md-12 d-flex">
                     <label for="nombreProfesor">NOMBRE DEL PROFESOR:</label>
-                    <input type="text" class="form-control read" id="nombreProfesor" placeholder="INGRESE NOMBRE DEL PROFESOR">
+                    <input type="text" class="form-control read" id="nombreProfesor" placeholder="JESÚS MERINO FLORES" value="JESÚS MERINO FLORES" readonly>
                 </div>
 
             </div>
@@ -289,5 +293,8 @@
     <script src="gradoParaSubir.js"></script>
     <script src="crearPDF.js" type="module"></script>
     <script src="mayusculas.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="sweetalert-utils.js"></script>
 </body>
 </html>

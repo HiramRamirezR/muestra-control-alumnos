@@ -1,6 +1,7 @@
 import app from './firebaseConfig.js'
-import { getDatabase, ref, push } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+import { getDatabase, ref, push, get } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
 import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+import { mostrarExito, mostrarError, mostrarAdvertencia } from './sweetalert-utils.js';
 
 const database = getDatabase(app);
 const alumnos = ref(database, 'alumnos');
@@ -17,7 +18,11 @@ onAuthStateChanged(auth, (user) => {
 const enviarForm = document.getElementById('enviarForm');
 
 enviarForm.addEventListener('click', () => {
-  // Solo ejecuta el código de creación si no estamos en modo edición
+  // Disable the submit button to prevent multiple submissions
+  enviarForm.disabled = true;
+  enviarForm.classList.add('disabled');
+
+  // Only execute if not in edit mode
   const urlParams = new URLSearchParams(window.location.search);
   const editarAlumnoID = urlParams.get('editar');
 
@@ -41,9 +46,75 @@ enviarForm.addEventListener('click', () => {
     const nombreProfesor = document.getElementById('nombreProfesor').value;
     const fechaExamenAnterior = document.getElementById('fechaExamenAnterior').value;
     const fechaExamen = document.getElementById('fechaExamen').value;
+    const estadoCivil = document.getElementById('estadoCivil').value;
 
-    if (nombre) {
-      push(alumnos, {
+    console.log('Datos del alumno:', {
+      numeroCertificado,
+      radioNino,
+      radioAdulto,
+      gradoActual,
+      gradoParaSubir,
+      nombre,
+      apellidoPaterno,
+      apellidoMaterno,
+      fechaNacimiento,
+      edad,
+      direccion,
+      telefono,
+      ocupacion,
+      fechaIngreso,
+      tiempoPracticando,
+      dojang,
+      nombreProfesor,
+      fechaExamenAnterior,
+      fechaExamen,
+      estadoCivil
+    });
+
+    // Prevent empty submissions
+    if (!nombre || !apellidoPaterno || !apellidoMaterno || !dojang) {
+      mostrarAdvertencia('Por favor, rellene los campos obligatorios: Nombre, Apellido Paterno, Apellido Materno, Doyang y Fecha de ingreso.');
+      enviarForm.disabled = false;
+      enviarForm.classList.remove('disabled');
+      return;
+    }
+
+    // Validate required fields
+    if (!dojang) {
+      mostrarAdvertencia('Por favor, seleccione un Doyang.');
+      enviarForm.disabled = false;
+      enviarForm.classList.remove('disabled');
+      return;
+    }
+
+    // Validate date fields
+    if (!fechaIngreso) {
+      mostrarAdvertencia('Por favor, ingrese la fecha de ingreso.');
+      enviarForm.disabled = false;
+      enviarForm.classList.remove('disabled');
+      return;
+    }
+
+    // Check for existing student with same name and birthdate
+    const alumnosRef = ref(database, 'alumnos');
+    get(alumnosRef).then((snapshot) => {
+      const existingAlumnos = snapshot.val() || {};
+      const duplicateAlumno = Object.values(existingAlumnos).find(alumno => 
+        alumno.nombre === nombre && 
+        alumno.apellidoPaterno === apellidoPaterno && 
+        alumno.apellidoMaterno === apellidoMaterno && 
+        alumno.fechaNacimiento === fechaNacimiento
+      );
+
+      if (duplicateAlumno) {
+        mostrarAdvertencia('Este alumno ya existe en la base de datos. No se pueden crear registros duplicados.');
+        enviarForm.disabled = false;
+        enviarForm.classList.remove('disabled');
+        return;
+      }
+
+      // If no duplicate found, proceed with creating the record
+      push(alumnosRef, {
         numeroCertificado,
         radioNino,
         radioAdulto,
@@ -62,14 +133,27 @@ enviarForm.addEventListener('click', () => {
         dojang,
         nombreProfesor,
         fechaExamenAnterior,
-        fechaExamen
+        fechaExamen,
+        estadoCivil,
+        escuela: dojang,
+        estado: 'activo',
+        familia_id: null,
+        fechaCreacion: new Date().toISOString() // Add timestamp for tracking
       }).then(() => {
-        alert(`${nombre} ${apellidoPaterno} ${apellidoMaterno} ha sido registrado exitosamente.`);
+        mostrarExito(`${nombre} ${apellidoPaterno} ${apellidoMaterno} ha sido registrado exitosamente.`);
+        // Optional: Reset form or redirect
+        window.location.reload();
       }).catch((error) => {
         console.error('Error al registrar el alumno:', error);
+        mostrarError('Hubo un error al registrar el alumno. Intente nuevamente.');
+      }).finally(() => {
+        enviarForm.disabled = false;
+        enviarForm.classList.remove('disabled');
       });
-    } else {
-      alert('Por favor, rellene todos los campos.');
-    }
+    }).catch((error) => {
+      console.error('Error al verificar alumnos existentes:', error);
+      enviarForm.disabled = false;
+      enviarForm.classList.remove('disabled');
+    });
   }
 });

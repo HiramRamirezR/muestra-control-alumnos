@@ -1,6 +1,7 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
 import { getDatabase } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
 import { getAuth, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+import { mostrarError } from './sweetalert-utils.js';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDV-1Q4ETGOnRYjUHKlD3CmYLC5p0vLoY8",
@@ -18,7 +19,7 @@ function signIn() {
     console.log('Iniciando sesión...');
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
-  
+
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Inicio de sesión exitoso
@@ -28,7 +29,7 @@ function signIn() {
       })
       .catch((error) => {
         // Manejar errores aquí
-        alert('Error de inicio de sesión. Por favor, verifica tus credenciales.');
+        mostrarError('Error de inicio de sesión. Por favor, verifica tus credenciales.');
         console.error('Error de inicio de sesión:', error.message);
       });
   }

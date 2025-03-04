@@ -1,0 +1,182 @@
+/* Modern, Professional Design for Tae Kwon Do Application */
+
+:root {
+    /* Color Palette */
+    --primary-color: #2c3e50;       /* Deep Blue-Gray */
+    --secondary-color: #34495e;     /* Slightly Lighter Blue-Gray */
+    --accent-color: #3498db;        /* Bright Blue */
+    --success-color: #2ecc71;       /* Green */
+    --danger-color: #e74c3c;        /* Red */
+    --warning-color: #f39c12;       /* Orange */
+    --light-background: #f4f6f7;    /* Light Gray-Blue */
+    --text-color: #2c3e50;          /* Dark Gray */
+    --border-radius: 8px;           /* Rounded Corners */
+    --purple-color: #8e44ad;        /* Rich Purple */
+}
+
+/* Global Styles */
+body {
+    font-family: 'Inter', 'Roboto', 'Segoe UI', sans-serif;
+    background-color: var(--light-background);
+    color: var(--text-color);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Card Design */
+.card {
+    border-radius: var(--border-radius);
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.card-header {
+    background-color: var(--primary-color);
+    color: white;
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+    padding: 15px;
+}
+
+/* Button Styles - Unified Across Application */
+.btn {
+    border-radius: var(--border-radius);
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn i {
+    margin-right: 5px;
+}
+
+/* Specific Button Colors */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+.btn-success {
+    background-color: var(--success-color);
+    border-color: var(--success-color);
+}
+
+.btn-success:hover {
+    background-color: #27ae60;
+    border-color: #27ae60;
+}
+
+.btn-danger {
+    background-color: var(--danger-color);
+    border-color: var(--danger-color);
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+    border-color: #c0392b;
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: var(--primary-color);
+}
+
+.btn-purple {
+    background-color: var(--purple-color);
+    border-color: var(--purple-color);
+    color: white;
+}
+
+.btn-purple:hover {
+    background-color: #6c3483;
+    border-color: #6c3483;
+    color: white;
+}
+
+/* Form Styles */
+.form-control {
+    border-radius: var(--border-radius);
+    border-color: #bdc3c7;
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+/* Tables */
+.table {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.table thead {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.table-striped tbody tr:nth-of-type(even) {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Modal */
+.modal-content {
+    border-radius: var(--border-radius);
+}
+
+.modal-header {
+    background-color: var(--light-background);
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    .btn {
+        margin-bottom: 5px;
+    }
+}
+
+/* Utility Classes */
+.text-primary { color: var(--primary-color) !important; }
+.text-success { color: var(--success-color) !important; }
+.text-danger { color: var(--danger-color) !important; }
+.text-warning { color: var(--warning-color) !important; }
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}

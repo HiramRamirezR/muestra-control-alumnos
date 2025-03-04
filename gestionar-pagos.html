@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Gestión de Pagos - Taekwondo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="app-style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="mb-4">
+            <a href="menu.html" class="btn btn-secondary">
+                <i class="fa-solid fa-house"></i> Inicio
+            </a>
+            <a href="gestionar-familias.html" class="btn btn-info">
+                <i class="fa-solid fa-users"></i> Gestionar Familias
+            </a>
+            <a href="reportes-pagos.html" class="btn btn-warning">
+                <i class="fa-solid fa-chart-line"></i> Ver Reportes
+            </a>
+        </div>
+        
+        <h1 class="text-center mb-4">Gestión de Pagos</h1>
+        
+        <!-- Filtros -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <select id="dojangFiltro" class="form-control">
+                    <option value="">Todos los doyang</option>
+                    <option value="moodukkwan oriente">Moodukkwan Oriente</option>
+                    <option value="moodukkwan center">Moodukkwan Center</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <select id="estadoFiltro" class="form-control">
+                    <option value="">Todos los estados</option>
+                    <option value="al_corriente">Al corriente</option>
+                    <option value="adeudo">Con adeudo</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <input type="text" id="busquedaFamilia" class="form-control" placeholder="Buscar familia o alumno...">
+            </div>
+        </div>
+
+        <!-- Lista de Familias -->
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Familias</h4>
+            </div>
+            <div class="card-body">
+                <div id="listaFamilias" class="row">
+                    <!-- Las familias se cargarán dinámicamente aquí -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de Registro de Pago -->
+        <div class="modal fade" id="modalPago" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Registrar Pago</h5>
+                        <button type="button" class="close" onclick="cerrarModalPago()">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="formPago" onsubmit="return false;">
+                            <input type="hidden" id="familiaId">
+                            <div class="form-group">
+                                <label>Familia:</label>
+                                <div id="familiaInfo" class="font-weight-bold"></div>
+                            </div>
+                            <div class="form-group">
+                                <label>Mes correspondiente:</label>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <select class="form-control" id="mesPago" required>
+                                            <option value="">Seleccione el mes</option>
+                                            <option value="01">Enero</option>
+                                            <option value="02">Febrero</option>
+                                            <option value="03">Marzo</option>
+                                            <option value="04">Abril</option>
+                                            <option value="05">Mayo</option>
+                                            <option value="06">Junio</option>
+                                            <option value="07">Julio</option>
+                                            <option value="08">Agosto</option>
+                                            <option value="09">Septiembre</option>
+                                            <option value="10">Octubre</option>
+                                            <option value="11">Noviembre</option>
+                                            <option value="12">Diciembre</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <select class="form-control" id="anoPago" required>
+                                            <!-- Years will be populated dynamically by JavaScript -->
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Monto a pagar:</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">$</span>
+                                    </div>
+                                    <input type="number" class="form-control" id="montoPago" required min="0" step="0.01">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo de pago:</label>
+                                <select class="form-control" id="tipoPago" required>
+                                    <option value="">Seleccione tipo de pago</option>
+                                    <option value="efectivo">Efectivo</option>
+                                    <option value="transferencia">Transferencia</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="esBeca">
+                                    <label class="custom-control-label" for="esBeca">Pago con beca</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="cerrarModalPago()">Cancelar</button>
+                        <button type="button" class="btn btn-success mr-2" onclick="abrirModalAhorro()">
+                            <i class="fas fa-piggy-bank"></i> Ahorro
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="guardarPago()">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de Lista de Pagos -->
+        <div class="modal fade" id="modalListaPagos" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Lista de Pagos</h5>
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="contenedorTablaPagos">
+                            <!-- La tabla de pagos se insertará aquí -->
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success mr-2" onclick="abrirModalAhorro()">
+                            <i class="fas fa-piggy-bank"></i> Ahorro
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="abrirModalPagoDesdeListaPagos()">
+                            <i class="fas fa-plus"></i> Registrar Pago
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal para Editar Pago -->
+        <div class="modal fade" id="modalEditarPago" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editar Pago</h5>
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="formEditarPago">
+                            <input type="hidden" id="editarPagoId">
+                            <div class="form-group">
+                                <label>Familia:</label>
+                                <div id="editarFamiliaInfo" class="font-weight-bold"></div>
+                            </div>
+                            <div class="form-group">
+                                <label>Mes correspondiente:</label>
+                                <select class="form-control" id="editarMesPago" required>
+                                    <!-- Se llenará dinámicamente -->
+                                </select>
+                            <div class="form-group">
+                                <label>Año correspondiente:</label>
+                                <select class="form-control" id="editarAnoPago" required>
+                                    <!-- Years will be populated dynamically -->
+                                </select>
+                            </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Monto:</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">$</span>
+                                    </div>
+                                    <input type="number" class="form-control" id="editarMontoPago" required min="0" step="0.01">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo de pago:</label>
+                                <select class="form-control" id="editarTipoPago" required>
+                                    <option value="">Seleccione tipo de pago</option>
+                                    <option value="efectivo">Efectivo</option>
+                                    <option value="transferencia">Transferencia</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="editarEsBeca">
+                                    <label class="custom-control-label" for="editarEsBeca">Pago con beca</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="guardarEdicionPago()">Guardar Cambios</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botones de Navegación -->
+        <div class="mt-4 mb-4">
+            <a href="menu.html" class="btn btn-secondary">
+                <i class="fa-solid fa-house"></i> Inicio
+            </a>
+            <a href="gestionar-familias.html" class="btn btn-info">
+                <i class="fa-solid fa-users"></i> Gestionar Familias
+            </a>
+            <a href="reportes-pagos.html" class="btn btn-warning">
+                <i class="fa-solid fa-chart-line"></i> Ver Reportes
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="sweetalert-utils.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="module" src="gestionarPagos.js"></script>
+    <script src="standardize-buttons.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="sweetalert-utils.js"></script>
+    <!-- Modal para Registro de Ahorro -->
+    <div class="modal fade" id="modalRegistroAhorro" tabindex="-1" role="dialog" aria-labelledby="tituloModalAhorro" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title" id="tituloModalAhorro">Registrar Ahorro</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="formRegistroAhorro">
+                        <div class="form-group">
+                            <label for="montoAhorro">Monto de Ahorro</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">$</span>
+                                </div>
+                                <input type="number" class="form-control" id="montoAhorro" min="0" step="0.01" required>
+                            </div>
+                        </div>
+                        <div class="form-group text-center mt-3">
+                            <strong>Total Ahorrado:</strong> 
+                            <span id="totalAhorradoDisplay" class="text-primary h4">$0.00</span>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger mr-2" onclick="retirarAhorros()">
+                        <i class="fas fa-money-bill-wave"></i> Retirar Ahorros
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="guardarAhorro()">Registrar Ahorro</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

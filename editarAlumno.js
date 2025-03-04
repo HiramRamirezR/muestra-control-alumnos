@@ -1,5 +1,6 @@
 import app from './firebaseConfig.js'
 import { getDatabase, ref, onValue, set } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+import { mostrarExito, mostrarError, mostrarAdvertencia } from './sweetalert-utils.js';
 
 const database = getDatabase(app);
 
@@ -40,6 +41,7 @@ function cargarInformacionEdicion(id) {
             document.getElementById('nombreProfesor').value = alumno["nombreProfesor"];
             document.getElementById('fechaExamenAnterior').value = alumno["fechaExamenAnterior"];
             document.getElementById('fechaExamen').value = alumno["fechaExamen"];
+            document.getElementById('estadoCivil').value = alumno["estadoCivil"];
         }
     });
 }
@@ -68,10 +70,11 @@ enviarForm.addEventListener('click', () => {
             nombreProfesor: document.getElementById('nombreProfesor').value,
             fechaExamenAnterior: document.getElementById('fechaExamenAnterior').value,
             fechaExamen: document.getElementById('fechaExamen').value,
+            estadoCivil: document.getElementById('estadoCivil').value,
         }).then(() => {
-            alert('Alumno actualizado correctamente');
+            mostrarExito('Alumno actualizado correctamente');
         }).catch((error) => {
-            console.error('Error al actualizar el alumno:', error);
+            mostrarError('Error al actualizar el alumno:', error);
         });
     }
 });
