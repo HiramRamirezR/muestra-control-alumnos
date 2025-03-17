@@ -1,4 +1,4 @@
-import app from '../firebaseConfig.js';
+import app from './firebaseConfig.js';
 import { getDatabase, ref, onValue, remove } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
 import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 

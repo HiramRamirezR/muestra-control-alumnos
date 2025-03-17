@@ -1,4 +1,4 @@
-import app from '../firebaseConfig.js'
+import app from './firebaseConfig.js';
 import { getDatabase, ref, push, get } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
 import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 import { mostrarExito, mostrarError, mostrarAdvertencia } from './sweetalert-utils.js';

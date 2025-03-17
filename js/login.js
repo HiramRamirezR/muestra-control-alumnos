@@ -1,16 +1,8 @@
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import app from './firebaseConfig.js';
 import { getDatabase } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
 import { getAuth, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 import { mostrarError } from './sweetalert-utils.js';
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDV-1Q4ETGOnRYjUHKlD3CmYLC5p0vLoY8",
-  authDomain: "control-alumnos-76bc2.firebaseapp.com",
-  databaseURL: 'https://control-alumnos-76bc2-default-rtdb.firebaseio.com/',
-  projectId: "control-alumnos-76bc2",
-};
-
-const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const auth = getAuth(app);
 

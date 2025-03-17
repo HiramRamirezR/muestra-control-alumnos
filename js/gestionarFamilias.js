@@ -1,7 +1,7 @@
 import app from './firebaseConfig.js';
 import { getDatabase, ref, push, get, set, update, onValue } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
 import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
-import { mostrarExito, mostrarError, mostrarAdvertencia } from '../sweetalert-utils.js';
+import { mostrarExito, mostrarError, mostrarAdvertencia } from './sweetalert-utils.js';
 import { determinarPrecioPorMiembros, determinarPlanPorMiembros } from './utils-precios.js';
 
 const database = getDatabase(app);
@@ -82,7 +82,7 @@ function actualizarListaAlumnosSinFamilia() {
 }
 
 // Seleccionar alumno para familia
-window.seleccionarAlumno = function(alumnoId) {
+window.seleccionarAlumno = function (alumnoId) {
     if (!alumnosSeleccionados.has(alumnoId)) {
         alumnosSeleccionados.add(alumnoId);
         actualizarMiembrosSeleccionados();
@@ -112,7 +112,7 @@ function actualizarMiembrosSeleccionados() {
 }
 
 // Remover alumno de la selección
-window.removerAlumno = function(alumnoId) {
+window.removerAlumno = function (alumnoId) {
     alumnosSeleccionados.delete(alumnoId);
     actualizarMiembrosSeleccionados();
     actualizarPlanPagoAutomatico();
@@ -232,7 +232,7 @@ function actualizarListaFamilias() {
                     const alumno = alumnosData[alumnoId];
                     return alumno &&
                         (`${alumno.nombre} ${alumno.apellidoPaterno} ${alumno.apellidoMaterno}`)
-                        .toLowerCase().includes(busqueda);
+                            .toLowerCase().includes(busqueda);
                 });
 
             return coincideDojang && coincideBusqueda;
@@ -260,7 +260,7 @@ function actualizarListaFamilias() {
                     <div class="card-body">
                         <p class="card-text">
                             <strong>Plan:</strong> ${planPago === '1_persona' ? '1 persona' :
-                                                   planPago === '2_personas' ? '2 personas' : '3 o más'}<br>
+                    planPago === '2_personas' ? '2 personas' : '3 o más'}<br>
                             <strong>Monto Mensual:</strong> $${montoMensual.toFixed(2)}<br>
                             <strong>Dojang:</strong> ${obtenerDoyangFamilia(familiaId)}<br>
                             <strong>Miembros:</strong>
@@ -298,7 +298,7 @@ function actualizarListaFamilias() {
 }
 
 // Eliminar familia
-window.eliminarFamilia = async function(familiaId) {
+window.eliminarFamilia = async function (familiaId) {
     if (!confirm('¿Está seguro de eliminar esta familia? Los alumnos volverán a estar sin familia asignada.')) {
         return;
     }
@@ -319,7 +319,7 @@ window.eliminarFamilia = async function(familiaId) {
 };
 
 // Función para abrir el modal de edición de familia
-window.editarFamilia = async function(familiaId) {
+window.editarFamilia = async function (familiaId) {
     const familia = familiasData[familiaId];
     if (!familia) {
         mostrarError('Familia no encontrada');
@@ -345,7 +345,7 @@ window.editarFamilia = async function(familiaId) {
     $('#modalEditarFamilia').modal('show');
 
     // Agregar event listener para la búsqueda
-    document.getElementById('buscarAlumnoEditar').addEventListener('input', function() {
+    document.getElementById('buscarAlumnoEditar').addEventListener('input', function () {
         actualizarAlumnosDisponibles(familiaId);
     });
 };
@@ -407,7 +407,7 @@ function actualizarAlumnosDisponibles(familiaId) {
 }
 
 // Función para guardar los cambios de la familia
-window.guardarCambiosFamilia = async function() {
+window.guardarCambiosFamilia = async function () {
     const familiaId = document.getElementById('editarFamiliaId').value;
     const nombreFamilia = document.getElementById('editarNombreFamilia').value.toUpperCase();
     const montoMensual = parseFloat(document.getElementById('editarMontoMensual').value);
@@ -436,7 +436,7 @@ window.guardarCambiosFamilia = async function() {
 };
 
 // Función para remover un miembro de la familia
-window.removerMiembroFamilia = async function(familiaId, alumnoId) {
+window.removerMiembroFamilia = async function (familiaId, alumnoId) {
     if (!confirm('¿Está seguro de que desea remover este miembro de la familia?')) {
         return;
     }
@@ -471,7 +471,7 @@ window.removerMiembroFamilia = async function(familiaId, alumnoId) {
 };
 
 // Función para agregar un nuevo miembro a la familia
-window.removerMiembroFamilia = async function(familiaId, alumnoId) {
+window.removerMiembroFamilia = async function (familiaId, alumnoId) {
     if (!confirm('¿Está seguro de que desea remover este miembro de la familia?')) {
         return;
     }
