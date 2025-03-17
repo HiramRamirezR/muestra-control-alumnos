@@ -1,4 +1,4 @@
-import app from './firebaseConfig.js'
+import app from '../firebaseConfig.js'
 import { getDatabase, ref, push, get } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
 import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 import { mostrarExito, mostrarError, mostrarAdvertencia } from './sweetalert-utils.js';
@@ -99,10 +99,10 @@ enviarForm.addEventListener('click', () => {
     const alumnosRef = ref(database, 'alumnos');
     get(alumnosRef).then((snapshot) => {
       const existingAlumnos = snapshot.val() || {};
-      const duplicateAlumno = Object.values(existingAlumnos).find(alumno => 
-        alumno.nombre === nombre && 
-        alumno.apellidoPaterno === apellidoPaterno && 
-        alumno.apellidoMaterno === apellidoMaterno && 
+      const duplicateAlumno = Object.values(existingAlumnos).find(alumno =>
+        alumno.nombre === nombre &&
+        alumno.apellidoPaterno === apellidoPaterno &&
+        alumno.apellidoMaterno === apellidoMaterno &&
         alumno.fechaNacimiento === fechaNacimiento
       );
 

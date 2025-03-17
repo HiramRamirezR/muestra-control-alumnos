@@ -16,23 +16,23 @@ const auth = getAuth(app);
 
 // Función para iniciar sesión con el correo electrónico
 function signIn() {
-    console.log('Iniciando sesión...');
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+  console.log('Iniciando sesión...');
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
 
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Inicio de sesión exitoso
-        const user = userCredential.user;
-        console.log('Inicio de sesión exitoso:', user);
-        window.open('menu.html', '_self');
-      })
-      .catch((error) => {
-        // Manejar errores aquí
-        mostrarError('Error de inicio de sesión. Por favor, verifica tus credenciales.');
-        console.error('Error de inicio de sesión:', error.message);
-      });
-  }
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Inicio de sesión exitoso
+      const user = userCredential.user;
+      console.log('Inicio de sesión exitoso:', user);
+      window.open('menu.html', '_self');
+    })
+    .catch((error) => {
+      // Manejar errores aquí
+      mostrarError('Error de inicio de sesión. Por favor, verifica tus credenciales.');
+      console.error('Error de inicio de sesión:', error.message);
+    });
+}
 
 const login = document.getElementById('login');
 login.addEventListener('click', signIn);

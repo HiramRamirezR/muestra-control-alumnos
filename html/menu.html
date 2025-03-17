@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Alumnos</title>
+
+    <link rel="shortcut icon" href="../img/moodukkwan.png" type="image/x-icon">
+
+    <!-- Enlaza el archivo de estilo Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="../css/style.css" rel="stylesheet">
+</head>
+
+<body class="container mt-4">
+    <img src="../img/taekwondo.png" alt="" class="d-block mx-auto mb-4">
+    <h1 class="text-center mb-4">Sistema de Examen y Pagos</h1>
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <a href="formulario.html" class="btn btn-primary btn-block"><i class="fa-solid fa-pen"></i> Crear Alumno</a>
+        </div>
+        <div class="col-md-4 mb-4">
+            <a href="buscar-alumno.html" class="btn btn-purple btn-block"><i class="fa-solid fa-magnifying-glass"></i>
+                Buscar Alumno</a>
+        </div>
+        <div class="col-md-4 mb-4">
+            <a href="gestionar-familias.html" class="btn btn-success btn-block"><i class="fa-solid fa-users"></i>
+                Gestionar Familias</a>
+        </div>
+        <div class="col-md-4 mb-4">
+            <a href="gestionar-pagos.html" class="btn btn-info btn-block"><i class="fa-solid fa-money-bill"></i>
+                Gestionar Pagos</a>
+        </div>
+        <div class="col-md-4 mb-4">
+            <a href="reportes-pagos.html" class="btn btn-warning btn-block"><i class="fa-solid fa-chart-line"></i> Ver
+                Reportes</a>
+        </div>
+        <div class="col-md-4">
+            <button id="boton-cerrar-sesion" class="btn btn-danger btn-block"><i class="fa-solid fa-person-running"></i>
+                Cerrar sesión</button>
+        </div>
+    </div>
+
+    <img src="../img/01.gif" alt="" class="d-block mx-auto mb-4">
+
+    <!-- Scripts de Bootstrap y jQuery (asegúrate de incluir jQuery antes de Bootstrap) -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="../js/logout.js" type="module"></script>
+
+    <script src="../js/standardize-buttons.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="../js/sweetalert-utils.js"></script>
+</body>
+
+</html>

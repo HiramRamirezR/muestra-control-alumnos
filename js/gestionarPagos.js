@@ -99,12 +99,12 @@ function calcularEstadoPagoFamilia(familiaId) {
     const ultimoPagoMesActual = pagosFamilia
         .filter(pago => {
             const fechaPago = new Date(pago.fecha || pago.fecha_pago);
-            return fechaPago >= fechaInicioPago && 
-                   fechaPago.getMonth() === fechaActual.getMonth() && 
-                   fechaPago.getFullYear() === fechaActual.getFullYear();
+            return fechaPago >= fechaInicioPago &&
+                fechaPago.getMonth() === fechaActual.getMonth() &&
+                fechaPago.getFullYear() === fechaActual.getFullYear();
         })
         .sort((a, b) => new Date(b.fecha || b.fecha_pago) - new Date(a.fecha || a.fecha_pago))
-        [0];
+    [0];
 
     // Calcular total pagado desde enero 2025
     const totalPagado = pagosFamilia.reduce((total, pago) => {
@@ -117,7 +117,7 @@ function calcularEstadoPagoFamilia(familiaId) {
             return total + parseFloat(familia.monto_mensual);
         }
 
-        const montoPago = pago.monto !== undefined ? pago.monto : 
+        const montoPago = pago.monto !== undefined ? pago.monto :
             (pago.monto_pagado !== undefined ? pago.monto_pagado : 0);
         return total + (parseFloat(montoPago) || 0);
     }, 0);
@@ -133,7 +133,7 @@ function calcularEstadoPagoFamilia(familiaId) {
         if (ultimoPagoMesActual.es_beca) {
             return 'al_corriente';
         }
-        
+
         // Si el pago no cubre el monto completo, marcar como adeudo
         const montoPagoActual = parseFloat(ultimoPagoMesActual.monto || ultimoPagoMesActual.monto_pagado || 0);
         if (montoPagoActual < montoMensual) {
@@ -144,8 +144,8 @@ function calcularEstadoPagoFamilia(familiaId) {
     // Si el total pagado cubre lo esperado
     if (totalPagado >= totalEsperado) {
         return 'al_corriente';
-    } 
-    
+    }
+
     // Si hay pagos pero no cubre lo esperado
     if (totalPagado > 0) {
         return 'adeudo';
@@ -158,7 +158,7 @@ function calcularEstadoPagoFamilia(familiaId) {
 // Calcular meses transcurridos entre dos fechas
 function calcularMesesTranscurridos(fechaInicio, fechaFin) {
     return Math.floor(
-        (fechaFin.getTime() - fechaInicio.getTime()) / 
+        (fechaFin.getTime() - fechaInicio.getTime()) /
         (1000 * 60 * 60 * 24 * 30.44)  // Promedio de días por mes
     );
 }
@@ -169,7 +169,7 @@ function obtenerEstadoFamilia(familiaId) {
     if (!familia) return 'desconocido';
 
     // Verificar adeudos
-    const adeudosPendientes = Object.values(adeudosData || {}).filter(adeudo => 
+    const adeudosPendientes = Object.values(adeudosData || {}).filter(adeudo =>
         adeudo.familia_id === familiaId && adeudo.estado === 'pendiente'
     );
     if (adeudosPendientes.length > 0) return 'adeudo';
@@ -213,7 +213,7 @@ function mostrarListaPagos(familiaId) {
     const contenedorPagos = document.getElementById('contenedorTablaPagos');
     const modalTitulo = document.querySelector('#modalListaPagos .modal-title');
     const familia = familiasData[familiaId];
-    
+
     if (!familia) {
         if (contenedorPagos) {
             contenedorPagos.innerHTML = '<p class="text-danger">Error: Familia no encontrada</p>';
@@ -225,27 +225,27 @@ function mostrarListaPagos(familiaId) {
     if (modalTitulo) {
         modalTitulo.textContent = `Pagos de la familia ${familia.nombre_familia}`;
     }
-    
+
     // Establecer el familiaId como un atributo de datos en la modal
     const modalListaPagos = document.getElementById('modalListaPagos');
     modalListaPagos.dataset.familiaId = familiaId;
-    
+
     // Filtrar pagos de esta familia
     const pagosFamilia = Object.entries(pagosData || {})
         .filter(([_, pago]) => pago.familia_id === familiaId)
         .sort((a, b) => b[1].mes_correspondiente.localeCompare(a[1].mes_correspondiente));
-    
+
     // Crear y mostrar la tabla de pagos
     const tabla = document.createElement('div');
     tabla.className = 'table-responsive';
-    
+
     // Agregar input oculto para el ID de la familia
     const familiaIdInput = document.createElement('input');
     familiaIdInput.type = 'hidden';
     familiaIdInput.name = 'familiaId';
     familiaIdInput.value = familiaId;
     tabla.appendChild(familiaIdInput);
-    
+
     if (pagosFamilia.length === 0) {
         // No hay pagos registrados
         tabla.innerHTML += `
@@ -270,19 +270,19 @@ function mostrarListaPagos(familiaId) {
                 </thead>
                 <tbody>
                     ${pagosFamilia.map(([pagoId, pago]) => {
-                        const fecha = new Date(pago.fecha).toLocaleDateString();
-                        
-                        // Corregir la visualización del mes
-                        const [anio, mes] = pago.mes_correspondiente.split('-');
-                        const mesFormateado = new Date(anio, parseInt(mes) - 1).toLocaleDateString('es-MX', { 
-                            year: 'numeric', 
-                            month: 'long'
-                        });
-                        
-                        const tipoPago = pago.es_beca ? `${pago.tipo_pago} (Beca)` : pago.tipo_pago;
-                        const estado = pago.estado.charAt(0).toUpperCase() + pago.estado.slice(1);
-                        
-                        return `
+            const fecha = new Date(pago.fecha).toLocaleDateString();
+
+            // Corregir la visualización del mes
+            const [anio, mes] = pago.mes_correspondiente.split('-');
+            const mesFormateado = new Date(anio, parseInt(mes) - 1).toLocaleDateString('es-MX', {
+                year: 'numeric',
+                month: 'long'
+            });
+
+            const tipoPago = pago.es_beca ? `${pago.tipo_pago} (Beca)` : pago.tipo_pago;
+            const estado = pago.estado.charAt(0).toUpperCase() + pago.estado.slice(1);
+
+            return `
                             <tr>
                                 <td>${fecha}</td>
                                 <td>${mesFormateado}</td>
@@ -301,17 +301,17 @@ function mostrarListaPagos(familiaId) {
                                 </td>
                             </tr>
                         `;
-                    }).join('')}
+        }).join('')}
                 </tbody>
             </table>
         `;
     }
-    
+
     if (contenedorPagos) {
         contenedorPagos.innerHTML = '';
         contenedorPagos.appendChild(tabla);
     }
-    
+
     // Mostrar el modal usando jQuery
     const $modal = $('#modalListaPagos');
     if ($modal.length) {
@@ -322,7 +322,7 @@ function mostrarListaPagos(familiaId) {
 }
 
 // Función para editar un pago
-window.editarPago = function(pagoId) {
+window.editarPago = function (pagoId) {
     const pago = pagosData[pagoId];
     if (!pago) {
         mostrarError('Error: Pago no encontrado');
@@ -345,7 +345,7 @@ window.editarPago = function(pagoId) {
     const editarEsBecaInput = document.getElementById('editarEsBeca');
 
     // Verificar que todos los elementos existen
-    if (!editarPagoIdInput || !editarFamiliaInfoDiv || !editarMesPagoSelect || 
+    if (!editarPagoIdInput || !editarFamiliaInfoDiv || !editarMesPagoSelect ||
         !editarAnoPagoSelect || !editarMontoPagoInput || !editarTipoPagoSelect || !editarEsBecaInput) {
         console.error('Error: No se encontraron todos los elementos del formulario de edición');
         mostrarError('Error: No se pueden cargar los datos del pago');
@@ -354,15 +354,15 @@ window.editarPago = function(pagoId) {
 
     editarPagoIdInput.value = pagoId;
     editarFamiliaInfoDiv.textContent = familia.nombre_familia;
-    
+
     // Llenar el select de meses
     llenarSelectMeses(editarMesPagoSelect);
     editarMesPagoSelect.value = pago.mes_correspondiente.split('-')[1];
-    
+
     // Llenar el select de años
     llenarSelectAnos(editarAnoPagoSelect);
     editarAnoPagoSelect.value = pago.mes_correspondiente.split('-')[0];
-    
+
     editarMontoPagoInput.value = pago.monto;
     editarTipoPagoSelect.value = pago.tipo_pago;
     editarEsBecaInput.checked = pago.es_beca;
@@ -373,7 +373,7 @@ window.editarPago = function(pagoId) {
 };
 
 // Función para guardar la edición de un pago
-window.guardarEdicionPago = async function() {
+window.guardarEdicionPago = async function () {
     const pagoId = document.getElementById('editarPagoId').value;
     const pago = pagosData[pagoId];
     if (!pago) {
@@ -413,7 +413,7 @@ window.guardarEdicionPago = async function() {
         await update(ref(database, `pagos/${pagoId}`), pagoActualizado);
 
         // Actualizar o crear adeudo según corresponda
-        const adeudoExistente = Object.entries(adeudosData || {}).find(([_, adeudo]) => 
+        const adeudoExistente = Object.entries(adeudosData || {}).find(([_, adeudo]) =>
             adeudo.pago_id === pagoId);
 
         if (adeudoExistente) {
@@ -467,19 +467,19 @@ async function registrarPago(familiaId) {
     const montoInput = document.getElementById('montoPago');
     const tipoInput = document.getElementById('tipoPago');
     const esBecaInput = document.getElementById('esBeca');
-    
+
     if (!mesInput || !anoInput || !montoInput || !tipoInput || !esBecaInput) {
         console.error('Error: Elementos del formulario no encontrados');
         mostrarError('Error: Elementos del formulario no encontrados');
         return;
     }
-    
+
     const mesPago = mesInput.value;
     const anoPago = anoInput.value;
     const montoPago = parseFloat(montoInput.value);
     const tipoPago = tipoInput.value;
     const esBeca = esBecaInput.checked;
-    
+
     if (!mesPago || !anoPago || isNaN(montoPago) || !tipoPago) {
         mostrarAdvertencia('Por favor, complete todos los campos correctamente');
         return;
@@ -488,7 +488,7 @@ async function registrarPago(familiaId) {
     try {
         const nuevoPagoRef = push(pagosRef);
         const fechaPago = new Date().toISOString(); // Usar la fecha actual
-        
+
         const nuevoPago = {
             familia_id: familiaId,
             mes_correspondiente: `${anoPago}-${mesPago}`, // Formato YYYY-MM
@@ -542,14 +542,14 @@ async function eliminarPago(pagoId) {
             const pagoRef = ref(database, `pagos/${pagoId}`);
             const pagoSnapshot = await get(pagoRef);
             const pago = pagoSnapshot.val();
-            
+
             await set(pagoRef, null);
-            
+
             // Actualizar la vista inmediatamente
             if (pago) {
                 mostrarListaPagos(pago.familia_id);
             }
-            
+
             mostrarExito('Pago eliminado correctamente');
         } catch (error) {
             console.error('Error al eliminar el pago:', error);
@@ -575,8 +575,8 @@ function formatearUltimoPago(familiaId) {
 
     // Formatear la fecha del último pago
     const [anio, mes] = ultimoPago.mes_correspondiente.split('-');
-    const mesFormateado = new Date(anio, parseInt(mes) - 1).toLocaleDateString('es-MX', { 
-        year: 'numeric', 
+    const mesFormateado = new Date(anio, parseInt(mes) - 1).toLocaleDateString('es-MX', {
+        year: 'numeric',
         month: 'long'
     });
 
@@ -615,13 +615,13 @@ function actualizarListaFamilias() {
                 return nombreCompleto.includes(busqueda);
             });
 
-            return (coincideDojang && coincideEstado && 
-                    (coincideBusquedaFamilia || coincideBusquedaMiembro));
+            return (coincideDojang && coincideEstado &&
+                (coincideBusquedaFamilia || coincideBusquedaMiembro));
         })
         .map(([id, familia]) => {
             // Obtener el estado de la familia
             const estadoFamilia = obtenerEstadoFamilia(id);
-            
+
             // Formatear los miembros
             let miembrosNombres = '';
             if (Array.isArray(familia.miembros)) {
@@ -698,7 +698,7 @@ function actualizarListaFamilias() {
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         await cargarDatos();
-        
+
         // Asegurar que los selectores de filtro estén disponibles antes de configurarlos
         const dojangFiltro = document.getElementById('dojangFiltro');
         const estadoFiltro = document.getElementById('estadoFiltro');
@@ -711,13 +711,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         } else {
             console.warn('Elemento dojangFiltro no encontrado');
         }
-        
+
         if (estadoFiltro) {
             estadoFiltro.addEventListener('change', actualizarListaFamilias);
         } else {
             console.warn('Elemento estadoFiltro no encontrado');
         }
-        
+
         if (busquedaFamilia) {
             busquedaFamilia.addEventListener('input', actualizarListaFamilias);
         } else {
@@ -745,13 +745,13 @@ window.mostrarListaPagos = mostrarListaPagos;
 function abrirModalPagoDesdeListaPagos() {
     // Intentar obtener el ID de la familia de diferentes maneras
     let familiaId = null;
-    
+
     // Primero, buscar un input oculto con el ID de la familia
     const familiaIdInput = document.querySelector('#modalListaPagos input[name="familiaId"]');
     if (familiaIdInput) {
         familiaId = familiaIdInput.value;
     }
-    
+
     // Si no se encuentra, intentar obtener de un elemento con ID 'familiaId'
     if (!familiaId) {
         const familiaIdElement = document.getElementById('familiaId');
@@ -759,7 +759,7 @@ function abrirModalPagoDesdeListaPagos() {
             familiaId = familiaIdElement.value;
         }
     }
-    
+
     // Si aún no se encuentra, intentar obtener de un atributo de datos en la modal
     if (!familiaId) {
         const modalListaPagos = document.getElementById('modalListaPagos');
@@ -767,7 +767,7 @@ function abrirModalPagoDesdeListaPagos() {
             familiaId = modalListaPagos.getAttribute('data-familia-id');
         }
     }
-    
+
     // Si no se encuentra el ID de la familia, mostrar error
     if (!familiaId) {
         console.error('Error: No se encontró el ID de la familia');
@@ -788,7 +788,7 @@ window.abrirModalPagoDesdeListaPagos = abrirModalPagoDesdeListaPagos;
 // Funciones para el modal de pago
 function llenarSelectMeses(select = document.getElementById('mesPago')) {
     select.innerHTML = ''; // Limpiar opciones existentes
-    
+
     const meses = [
         'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
         'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
@@ -812,26 +812,26 @@ function llenarSelectMeses(select = document.getElementById('mesPago')) {
 
 function llenarSelectAnos(select = document.getElementById('anoPago')) {
     select.innerHTML = ''; // Limpiar opciones existentes
-    
+
     const fechaActual = new Date();
     const anioActual = fechaActual.getFullYear();
-    
+
     // Agregar opción por defecto
     const defaultOption = document.createElement('option');
     defaultOption.value = '';
     defaultOption.textContent = 'Seleccione el año';
     select.appendChild(defaultOption);
-    
+
     // Agregar años: año actual, año anterior y año siguiente
     const years = [anioActual - 1, anioActual, anioActual + 1];
-    
+
     years.forEach(anio => {
         const option = document.createElement('option');
         option.value = anio.toString();
         option.textContent = anio.toString();
         select.appendChild(option);
     });
-    
+
     // Establecer el año actual como seleccionado por defecto
     select.value = anioActual.toString();
 }
@@ -897,19 +897,19 @@ function prevenirCierreModal() {
 
 function cerrarModalPago() {
     console.log('Cerrando modal de pago manualmente');
-    
+
     // Limpiar formulario
     const formPago = document.getElementById('formPago');
     if (formPago) {
         formPago.reset();
     }
-    
+
     // Limpiar checkbox de beca
     const esBecaInput = document.getElementById('esBeca');
     if (esBecaInput) {
         esBecaInput.checked = false;
     }
-    
+
     // Forzar cierre del modal
     const modalPago = $('#modalPago');
     modalPago.off('hide.bs.modal'); // Remover manejadores de eventos
@@ -918,7 +918,7 @@ function cerrarModalPago() {
 
 function guardarPago() {
     console.log('Iniciando guardarPago()');
-    
+
     // Obtener referencias de elementos
     const familiaIdElement = document.getElementById('familiaId');
     const mesPagoElement = document.getElementById('mesPago');
@@ -942,8 +942,8 @@ function guardarPago() {
     const tipoPago = tipoPagoElement.value.trim();
     const esBeca = esBecaElement.checked;
 
-    console.log('Valores obtenidos:', { 
-        familiaId, mesPago, anoPago, montoPago, tipoPago, esBeca 
+    console.log('Valores obtenidos:', {
+        familiaId, mesPago, anoPago, montoPago, tipoPago, esBeca
     });
 
     // Validaciones
@@ -1057,9 +1057,9 @@ function renderizarTarjetasFamilias() {
                             <strong>Miembros:</strong>
                             <ul class="pl-3">
                                 ${familia.miembros.map(alumnoId => {
-                                    const alumno = alumnosData[alumnoId];
-                                    return alumno ? `<li>${alumno.nombre} ${alumno.apellidoPaterno} ${alumno.apellidoMaterno}</li>` : 'Alumno eliminado';
-                                }).join('')}
+            const alumno = alumnosData[alumnoId];
+            return alumno ? `<li>${alumno.nombre} ${alumno.apellidoPaterno} ${alumno.apellidoMaterno}</li>` : 'Alumno eliminado';
+        }).join('')}
                             </ul>
                             <strong>Último Pago:</strong> ${formatearUltimoPago(id) || 'Sin pagos'}
                         </p>
@@ -1084,10 +1084,10 @@ function renderizarTarjetasFamilias() {
 async function abrirModalAhorro() {
     // Obtener el ID de la familia del modal de lista de pagos
     const familiaId = document.getElementById('modalListaPagos').dataset.familiaId;
-    
+
     // Cerrar modal de lista de pagos
     $('#modalListaPagos').modal('hide');
-    
+
     // Preparar modal de ahorro
     const modalAhorro = document.getElementById('modalRegistroAhorro');
     const inputMontoAhorro = document.getElementById('montoAhorro');
@@ -1128,7 +1128,7 @@ async function guardarAhorro() {
     try {
         // Referencia a la familia
         const familiaRef = ref(database, `familias/${familiaId}`);
-        
+
         // Obtener datos actuales de la familia
         const familiaSnapshot = await get(familiaRef);
         const familiaData = familiaSnapshot.val();
@@ -1156,7 +1156,7 @@ async function guardarAhorro() {
         totalAhorradoDisplay.textContent = `$${nuevoTotalAhorros.toFixed(2)}`;
 
         mostrarExito(`Ahorro de $${montoAhorro.toFixed(2)} registrado exitosamente`);
-        
+
         // Actualizar la lista de familias y reportes
         await Promise.all([
             actualizarListaFamilias(),
@@ -1217,7 +1217,7 @@ async function retirarAhorros() {
                     html: `Se han retirado <strong>$${totalAhorrosActual.toFixed(2)}</strong> en ahorros.`,
                     icon: 'success'
                 });
-                
+
                 // Actualizar la lista de familias y reportes
                 await Promise.all([
                     actualizarListaFamilias(),

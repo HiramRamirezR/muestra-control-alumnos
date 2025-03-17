@@ -3,7 +3,7 @@ import { getDatabase, ref, onValue, remove, update, query, orderByChild, equalTo
 import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 // Update XLSX import
 import * as XLSX from 'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/+esm';
-import { mostrarExito, mostrarError, mostrarAdvertencia } from './sweetalert-utils.js';
+import { mostrarExito, mostrarError, mostrarAdvertencia } from '../sweetalert-utils.js';
 
 const database = getDatabase(app);
 const alumnosRef = ref(database, 'alumnos');

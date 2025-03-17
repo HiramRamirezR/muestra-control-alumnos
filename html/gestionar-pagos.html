@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Gestión de Pagos - Taekwondo</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
+
 <body>
     <div class="container mt-4">
         <div class="mb-4">
@@ -107,7 +109,8 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">$</span>
                                     </div>
-                                    <input type="number" class="form-control" id="montoPago" required min="0" step="0.01">
+                                    <input type="number" class="form-control" id="montoPago" required min="0"
+                                        step="0.01">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -186,12 +189,12 @@
                                 <select class="form-control" id="editarMesPago" required>
                                     <!-- Se llenará dinámicamente -->
                                 </select>
-                            <div class="form-group">
-                                <label>Año correspondiente:</label>
-                                <select class="form-control" id="editarAnoPago" required>
-                                    <!-- Years will be populated dynamically -->
-                                </select>
-                            </div>
+                                <div class="form-group">
+                                    <label>Año correspondiente:</label>
+                                    <select class="form-control" id="editarAnoPago" required>
+                                        <!-- Years will be populated dynamically -->
+                                    </select>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Monto:</label>
@@ -199,7 +202,8 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">$</span>
                                     </div>
-                                    <input type="number" class="form-control" id="editarMontoPago" required min="0" step="0.01">
+                                    <input type="number" class="form-control" id="editarMontoPago" required min="0"
+                                        step="0.01">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -220,7 +224,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary" onclick="guardarEdicionPago()">Guardar Cambios</button>
+                        <button type="button" class="btn btn-primary" onclick="guardarEdicionPago()">Guardar
+                            Cambios</button>
                     </div>
                 </div>
             </div>
@@ -240,18 +245,17 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script type="module" src="sweetalert-utils.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script type="module" src="gestionarPagos.js"></script>
-    <script src="standardize-buttons.js"></script>
+    <script type="module" src="../js/gestionarPagos.js"></script>
+    <script src="../js/standardize-buttons.js"></script>
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script type="module" src="sweetalert-utils.js"></script>
+    <script type="module" src="../js/sweetalert-utils.js"></script>
     <!-- Modal para Registro de Ahorro -->
-    <div class="modal fade" id="modalRegistroAhorro" tabindex="-1" role="dialog" aria-labelledby="tituloModalAhorro" aria-hidden="true">
+    <div class="modal fade" id="modalRegistroAhorro" tabindex="-1" role="dialog" aria-labelledby="tituloModalAhorro"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-dark text-white">
@@ -287,4 +291,5 @@
         </div>
     </div>
 </body>
+
 </html>
