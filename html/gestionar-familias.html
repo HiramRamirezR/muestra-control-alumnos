@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Gestión de Familias - Taekwondo</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../img/moodukkwan.png">
+
+    <!-- Resto de tus enlaces CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
 </head>
+
 <body>
     <div class="container mt-4">
         <div class="mb-4">
@@ -70,7 +77,8 @@
                     <div class="form-group">
                         <label>Plan de Pago:</label>
                         <div class="form-check">
-                            <input type="radio" class="form-check-input" id="plan1" name="planPago" value="1_persona" required>
+                            <input type="radio" class="form-check-input" id="plan1" name="planPago" value="1_persona"
+                                required>
                             <label class="form-check-label" for="plan1">1 Persona ($600)</label>
                         </div>
                         <div class="form-check">
@@ -114,7 +122,8 @@
     </div>
 
     <!-- Modal para Editar Familia -->
-    <div class="modal fade" id="modalEditarFamilia" tabindex="-1" role="dialog" aria-labelledby="modalEditarFamiliaLabel" aria-hidden="true">
+    <div class="modal fade" id="modalEditarFamilia" tabindex="-1" role="dialog"
+        aria-labelledby="modalEditarFamiliaLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -138,7 +147,8 @@
                         </div>
                         <div class="form-group">
                             <label>Agregar Nuevos Miembros:</label>
-                            <input type="text" class="form-control mb-3" id="buscarAlumnoEditar" placeholder="Buscar alumno por nombre...">
+                            <input type="text" class="form-control mb-3" id="buscarAlumnoEditar"
+                                placeholder="Buscar alumno por nombre...">
                             <div id="alumnosDisponiblesEditar" class="list-group mb-3">
                                 <!-- Los alumnos disponibles se mostrarán aquí -->
                             </div>
@@ -149,7 +159,8 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">$</span>
                                 </div>
-                                <input type="number" class="form-control" id="editarMontoMensual" required min="0" step="0.01">
+                                <input type="number" class="form-control" id="editarMontoMensual" required min="0"
+                                    step="0.01">
                             </div>
                             <p class="text-muted">Planes de Pago:<br>
                                 1 Persona: $600<br>
@@ -160,16 +171,17 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="guardarCambiosFamilia()">Guardar Cambios</button>
+                    <button type="button" class="btn btn-primary" onclick="guardarCambiosFamilia()">Guardar
+                        Cambios</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script type="module">
-        import app from './firebaseConfig.js';
+        import app from '../js/firebaseConfig.js';
         import { getDatabase, ref, onValue } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
-        import { determinarPrecioPorMiembros, determinarPlanPorMiembros } from './utils-precios.js';
+        import { determinarPrecioPorMiembros, determinarPlanPorMiembros } from '../js/utils-precios.js';
 
         const database = getDatabase(app);
         const familiasRef = ref(database, 'familias');
@@ -237,7 +249,7 @@
 
                     const mostrarAlumno = (
                         (textoBusqueda === '' ||
-                         nombreAlumno.includes(textoBusqueda)) &&
+                            nombreAlumno.includes(textoBusqueda)) &&
                         (dojangSeleccionado === '' || doyangAlumno === dojangSeleccionado)
                     );
 
@@ -260,8 +272,8 @@
 
                     const mostrarFamilia = (
                         (textoBusqueda === '' ||
-                         nombreFamilia.includes(textoBusqueda) ||
-                         miembrosCoinciden) &&
+                            nombreFamilia.includes(textoBusqueda) ||
+                            miembrosCoinciden) &&
                         (dojangSeleccionado === '' || doyangFamilia === dojangSeleccionado)
                     );
 
@@ -298,7 +310,7 @@
                         <div class="card-body">
                             <p class="card-text">
                                 <strong>Plan:</strong> ${planPago === '1_persona' ? '1 persona' :
-                                                       planPago === '2_personas' ? '2 personas' : '3 o más'}<br>
+                        planPago === '2_personas' ? '2 personas' : '3 o más'}<br>
                                 <strong>Monto Mensual:</strong> $${montoMensual.toFixed(2)}<br>
                                 <strong>Miembros:</strong>
                                 <ul class="pl-3">
@@ -325,13 +337,14 @@
         window.renderizarFamilias = renderizarFamilias;
     </script>
 
+    <!-- Scripts externos -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="../js/standardize-buttons.js"></script>
-    <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="module" src="../js/sweetalert-utils.js"></script>
     <script type="module" src="../js/gestionarFamilias.js"></script>
 </body>
+
 </html>

@@ -1,224 +1,236 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Registro de Alumnos para presentar Examen</title>
+
+    <!-- Scripts externos -->
     <script src="https://unpkg.com/html2pdf.js@0.10.0/dist/html2pdf.bundle.min.js"></script>
-    <!-- Agrega el enlace a Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="shortcut icon" href="#" type="image/x-icon">
-    <!-- Font awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="shortcut icon" href="../img/moodukkwan.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
 </head>
+
 <body>
-<div class="imprimir">
-    <div class="container mt-2">
+    <div class="imprimir">
+        <div class="container mt-2">
 
-        <div class="row mb-3 d-flex justify-content-center align-items-center">
-            <img src="../img/taekwondo.png" alt="logos">
-            <div class="text-center ml-4">
-                <h1 class="mdk">MOONMOO WON® - MOO DUK KWAN®</h1>
-                <h2 class="ml-4 h2-formulario">SOLICITUD DE EXAMEN KUPS</h2>
-                <h2 class="parentesis h2-formulario">(YUKUPYA SIMSA)</h2>
-            </div>
-        </div>
-
-        <form id="formularioAlumno">
-            <div class="form-row d-flex justify-content-between">
-
-                <div class="form-group col-md-3">
-                    <input type="text" class="form-control" id="numeroCertificado" placeholder="INGRESE EL NÚMERO DE CERTIFICADO">
-                    <label for="numeroCertificado" class="d-flex justify-content-center">NÚMERO DE CERTIFICADO:</label>
+            <div class="row mb-3 d-flex justify-content-center align-items-center">
+                <img src="../img/taekwondo.png" alt="logos">
+                <div class="text-center ml-4">
+                    <h1 class="mdk">MOONMOO WON® - MOO DUK KWAN®</h1>
+                    <h2 class="ml-4 h2-formulario">SOLICITUD DE EXAMEN KUPS</h2>
+                    <h2 class="parentesis h2-formulario">(YUKUPYA SIMSA)</h2>
                 </div>
+            </div>
 
-                <div class="form-group col-md-3">
-                    <label>CATEGORÍA EN MDK:</label>
-                    <div class="form-row mb-3">
-                        <div class="form-check">
-                            <input type="radio" class="form-check-input" id="radioNino" name="tipoAlumno" value="Nino">
-                            <label class="form-check-label" for="radioNino">NIÑO</label>
-                        </div>
-                        <div class="form-check ml-3">
-                            <input type="radio" class="form-check-input" id="radioAdulto" name="tipoAlumno" value="Adulto">
-                            <label class="form-check-label" for="radioAdulto">ADULTO</label>
+            <form id="formularioAlumno">
+                <div class="form-row d-flex justify-content-between">
+
+                    <div class="form-group col-md-3">
+                        <input type="text" class="form-control" id="numeroCertificado"
+                            placeholder="INGRESE EL NÚMERO DE CERTIFICADO">
+                        <label for="numeroCertificado" class="d-flex justify-content-center">NÚMERO DE
+                            CERTIFICADO:</label>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label>CATEGORÍA EN MDK:</label>
+                        <div class="form-row mb-3">
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" id="radioNino" name="tipoAlumno"
+                                    value="Nino">
+                                <label class="form-check-label" for="radioNino">NIÑO</label>
+                            </div>
+                            <div class="form-check ml-3">
+                                <input type="radio" class="form-check-input" id="radioAdulto" name="tipoAlumno"
+                                    value="Adulto">
+                                <label class="form-check-label" for="radioAdulto">ADULTO</label>
+                            </div>
                         </div>
                     </div>
+
+                    <div class="form-group d-flex flex-column col-md-5">
+                        <div class="form-group d-flex">
+                            <label for="gradoActual" class="col-md-6">GRADO ACTUAL:</label>
+                            <select class="form-control" id="gradoActual">
+                                <option value="" disable selected>SELECCIONE EL GRADO ACTUAL</option>
+                                <option value="principiante">PRINCIPIANTE</option>
+                                <option value="10kup">10° KUP</option>
+                                <option value="9kup">9° KUP</option>
+                                <option value="8kup">8° KUP</option>
+                                <option value="7kup">7° KUP</option>
+                                <option value="6kup">6° KUP</option>
+                                <option value="5kup">5° KUP</option>
+                                <option value="4kup">4° KUP</option>
+                                <option value="3kup">3° KUP</option>
+                                <option value="2kup">2° KUP</option>
+                                <option value="1kup">1° KUP</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group d-flex">
+                            <label for="gradoParaSubir" class="col-md-6 mt-2">GRADO PARA SUBIR:</label>
+                            <input type="text" class="form-control read" id="gradoParaSubir"
+                                placeholder="GRADO PARA SUBIR" readonly>
+                        </div>
+                    </div>
+
                 </div>
 
-                <div class="form-group d-flex flex-column col-md-5">
-                    <div class="form-group d-flex">
-                        <label for="gradoActual" class="col-md-6">GRADO ACTUAL:</label>
-                        <select class="form-control" id="gradoActual">
-                            <option value="" disable selected>SELECCIONE EL GRADO ACTUAL</option>
-                            <option value="principiante">PRINCIPIANTE</option>
-                            <option value="10kup">10° KUP</option>
-                            <option value="9kup">9° KUP</option>
-                            <option value="8kup">8° KUP</option>
-                            <option value="7kup">7° KUP</option>
-                            <option value="6kup">6° KUP</option>
-                            <option value="5kup">5° KUP</option>
-                            <option value="4kup">4° KUP</option>
-                            <option value="3kup">3° KUP</option>
-                            <option value="2kup">2° KUP</option>
-                            <option value="1kup">1° KUP</option>
+                <div class="form-row">
+
+                    <div class="form-group col-md-4">
+                        <input type="text" class="form-control" id="nombres" placeholder="INGRESE EL/LOS NOMBRES">
+                        <label for="nombres" class="d-flex justify-content-center">NOMBRE(S):</label>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <input type="text" class="form-control" id="apellidoPaterno"
+                            placeholder="INGRESE EL APELLIDO PATERNO">
+                        <label for="apellidoPaterno" class="d-flex justify-content-center">APELLIDO PATERNO:</label>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <input type="text" class="form-control" id="apellidoMaterno"
+                            placeholder="INGRESE EL APELLIDO MATERNO">
+                        <label for="apellidoMaterno" class="d-flex justify-content-center">APELLIDO MATERNO:</label>
+                    </div>
+
+                </div>
+
+                <div class="form-row d-flex">
+
+                    <div class="form-group d-flex justify-content-between col-md-8">
+                        <label for="fechaNacimiento" class="d-flex">FECHA DE NACIMIENTO:</label>
+                        <input type="date" class="form-control fecha-formato" id="fechaNacimiento">
+                    </div>
+
+                    <div class="form-group col-md-4 d-flex">
+                        <label for="edad">EDAD:</label>
+                        <input type="text" class="form-control read" id="edad" placeholder="AÑOS Y MESES" readonly>
+                    </div>
+
+                </div>
+
+                <div class="form-row d-flex">
+
+                    <div class="form-group col-md-12 d-flex">
+                        <label for="direccion" class="d-flex justify-content-center">DOMICILIO PARTICULAR:</label>
+                        <input type="text" class="form-control" id="direccion" placeholder="INGRESE EL DOMICILIO">
+                    </div>
+
+                </div>
+
+                <div class="form-row d-flex justify-content-between">
+
+                    <div class="form-group col-md-4 d-flex">
+                        <label for="telefono">TELÉFONO:</label>
+                        <input type="tel" class="form-control" id="telefono" placeholder="INGRESE EL TELÉFONO">
+                    </div>
+
+                    <div class="form-group col-md-4 d-flex">
+                        <label for="estadoCivil">EDO. CIVIL:</label>
+                        <select class="form-control" id="estadoCivil">
+                            <option value="" disable selected>SELECCIONE UNA OPCIÓN</option>
+                            <option value="soltero(a)">SOLTERO(A)</option>
+                            <option value="casado(a)">CASADO(A)</option>
+                            <option value="viudo(a)">VIUDO(A)</option>
+                            <option value="divorciado(a)">DIVORCIADO(A)</option>
+                            <option value="otro">OTRO</option>
                         </select>
                     </div>
 
-                    <div class="form-group d-flex">
-                        <label for="gradoParaSubir" class="col-md-6 mt-2">GRADO PARA SUBIR:</label>
-                        <input type="text" class="form-control read" id="gradoParaSubir" placeholder="GRADO PARA SUBIR" readonly>
+                    <div class="form-group col-md-4 d-flex">
+                        <label for="ocupacion">OCUPACIÓN:</label>
+                        <select class="form-control" id="ocupacion">
+                            <option value="" disable selected>SELECCIONA UNA OPCIÓN</option>
+                            <option value="estudiante">ESTUDIANTE</option>
+                            <option value="empleado">EMPLEADO</option>
+                            <option value="profesional">PROFESIONAL</option>
+                            <option value="trabajador independiente">TRABAJADOR INDEPENDIENTE</option>
+                            <option value="dueño de negocio">DUEÑO DE NEGOCIO</option>
+                            <option value="hogar">HOGAR</option>
+                            <option value="otro">OTRO</option>
+                        </select>
                     </div>
+
                 </div>
 
-            </div>
+                <div class="form-row d-flex">
 
-            <div class="form-row">
+                    <div class="form-group col-md-12 d-flex">
+                        <label for="fechaExamenAnterior">FECHA DE EXAMEN ANTERIOR APROBADO:</label>
+                        <input type="date" class="form-control fecha-formato" id="fechaExamenAnterior">
+                    </div>
 
-                <div class="form-group col-md-4">
-                    <input type="text" class="form-control" id="nombres" placeholder="INGRESE EL/LOS NOMBRES">
-                    <label for="nombres" class="d-flex justify-content-center">NOMBRE(S):</label>
                 </div>
 
-                <div class="form-group col-md-4">
-                    <input type="text" class="form-control" id="apellidoPaterno" placeholder="INGRESE EL APELLIDO PATERNO">
-                    <label for="apellidoPaterno" class="d-flex justify-content-center">APELLIDO PATERNO:</label>
+                <div class="form-row">
+
+                    <div class="form-group col-md-6 d-flex">
+                        <label for="fechaIngreso">FECHA DE INGRESO:</label>
+                        <input type="date" class="form-control fecha-formato" id="fechaIngreso">
+                    </div>
+
+                    <div class="form-group col-md-6 d-flex">
+                        <label for="tiempoPracticando">TIEMPO PRACTICANDO:</label>
+                        <input type="text" class="form-control read" id="tiempoPracticando"
+                            placeholder="TIEMPO PRACTICANDO" readonly>
+                    </div>
+
                 </div>
 
-                <div class="form-group col-md-4">
-                    <input type="text" class="form-control" id="apellidoMaterno" placeholder="INGRESE EL APELLIDO MATERNO">
-                    <label for="apellidoMaterno" class="d-flex justify-content-center">APELLIDO MATERNO:</label>
+                <div class="form-row">
+
+                    <div class="form-group col-md-12 d-flex">
+                        <label for="dojang">DOYANG AL QUE PERTENECE:</label>
+                        <select class="form-control" id="dojang" required>
+                            <option value="" disabled selected>SELECCIONE EL DOYANG</option>
+                            <option value="moodukkwan oriente">MOODUKKWAN ORIENTE</option>
+                            <option value="moodukkwan center">MOODUKKWAN CENTER</option>
+                        </select>
+                    </div>
+
                 </div>
 
-            </div>
+                <div class="form-row">
 
-            <div class="form-row d-flex">
+                    <div class="form-group col-md-12 d-flex">
+                        <label for="nombreProfesor">NOMBRE DEL PROFESOR:</label>
+                        <input type="text" class="form-control read" id="nombreProfesor"
+                            placeholder="JESÚS MERINO FLORES" value="JESÚS MERINO FLORES" readonly>
+                    </div>
 
-                <div class="form-group d-flex justify-content-between col-md-8">
-                    <label for="fechaNacimiento" class="d-flex">FECHA DE NACIMIENTO:</label>
-                    <input type="date" class="form-control fecha-formato" id="fechaNacimiento">
                 </div>
 
-                <div class="form-group col-md-4 d-flex">
-                    <label for="edad">EDAD:</label>
-                    <input type="text" class="form-control read" id="edad" placeholder="AÑOS Y MESES" readonly>
+                <div class="form-row d-flex justify-content-between">
+
+                    <div class="form-group col-md-3">
+                        <input type="date" class="form-control fecha-formato" id="fechaExamen"
+                            placeholder="INGRESE LA FECHA DEL EXAMEN">
+                        <label for="fechaExamen" class="d-flex justify-content-center">FECHA DE EXAMEN:</label>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <input type="text" class="form-control read" id="firmaAlumno" readonly>
+                        <label class="d-flex justify-content-center" for="firmaAlumno">FIRMA DEL ALUMNO:</label>
+                        <p class="d-flex justify-content-center texto-pequeno">(SI ES MENOR, PADRE O TUTOR)</p>
+                    </div>
+
                 </div>
 
-            </div>
+                <div class="form-row d-flex justify-content-center ">
 
-            <div class="form-row d-flex">
+                    <div class="form-group col-md-3">
+                        <input type="text" class="form-control read" id="firmaProfesor" readonly>
+                        <label class="d-flex justify-content-center" for="firmaProfesor">FIRMA DEL PROFESOR:</label>
+                    </div>
 
-                <div class="form-group col-md-12 d-flex">
-                    <label for="direccion" class="d-flex justify-content-center">DOMICILIO PARTICULAR:</label>
-                    <input type="text" class="form-control" id="direccion" placeholder="INGRESE EL DOMICILIO">
                 </div>
-
-            </div>
-
-            <div class="form-row d-flex justify-content-between">
-
-                <div class="form-group col-md-4 d-flex">
-                    <label for="telefono">TELÉFONO:</label>
-                    <input type="tel" class="form-control" id="telefono" placeholder="INGRESE EL TELÉFONO">
-                </div>
-
-                <div class="form-group col-md-4 d-flex">
-                    <label for="estadoCivil">EDO. CIVIL:</label>
-                    <select class="form-control" id="estadoCivil">
-                        <option value="" disable selected>SELECCIONE UNA OPCIÓN</option>
-                        <option value="soltero(a)">SOLTERO(A)</option>
-                        <option value="casado(a)">CASADO(A)</option>
-                        <option value="viudo(a)">VIUDO(A)</option>
-                        <option value="divorciado(a)">DIVORCIADO(A)</option>
-                        <option value="otro">OTRO</option>
-                    </select>
-                </div>
-
-                <div class="form-group col-md-4 d-flex">
-                    <label for="ocupacion">OCUPACIÓN:</label>
-                    <select class="form-control" id="ocupacion">
-                        <option value="" disable selected>SELECCIONA UNA OPCIÓN</option>
-                        <option value="estudiante">ESTUDIANTE</option>
-                        <option value="empleado">EMPLEADO</option>
-                        <option value="profesional">PROFESIONAL</option>
-                        <option value="trabajador independiente">TRABAJADOR INDEPENDIENTE</option>
-                        <option value="dueño de negocio">DUEÑO DE NEGOCIO</option>
-                        <option value="hogar">HOGAR</option>
-                        <option value="otro">OTRO</option>
-                    </select>
-                </div>
-
-            </div>
-
-            <div class="form-row d-flex">
-
-                <div class="form-group col-md-12 d-flex">
-                    <label for="fechaExamenAnterior">FECHA DE EXAMEN ANTERIOR APROBADO:</label>
-                    <input type="date" class="form-control fecha-formato" id="fechaExamenAnterior">
-                </div>
-
-            </div>
-
-            <div class="form-row">
-
-                <div class="form-group col-md-6 d-flex">
-                    <label for="fechaIngreso">FECHA DE INGRESO:</label>
-                    <input type="date" class="form-control fecha-formato" id="fechaIngreso">
-                </div>
-
-                <div class="form-group col-md-6 d-flex">
-                    <label for="tiempoPracticando">TIEMPO PRACTICANDO:</label>
-                    <input type="text" class="form-control read" id="tiempoPracticando" placeholder="TIEMPO PRACTICANDO" readonly>
-                </div>
-
-            </div>
-
-            <div class="form-row">
-
-                <div class="form-group col-md-12 d-flex">
-                    <label for="dojang">DOYANG AL QUE PERTENECE:</label>
-                    <select class="form-control" id="dojang" required>
-                        <option value="" disabled selected>SELECCIONE EL DOYANG</option>
-                        <option value="moodukkwan oriente">MOODUKKWAN ORIENTE</option>
-                        <option value="moodukkwan center">MOODUKKWAN CENTER</option>
-                    </select>
-                </div>
-
-            </div>
-
-            <div class="form-row">
-
-                <div class="form-group col-md-12 d-flex">
-                    <label for="nombreProfesor">NOMBRE DEL PROFESOR:</label>
-                    <input type="text" class="form-control read" id="nombreProfesor" placeholder="JESÚS MERINO FLORES" value="JESÚS MERINO FLORES" readonly>
-                </div>
-
-            </div>
-
-            <div class="form-row d-flex justify-content-between">
-
-                <div class="form-group col-md-3">
-                    <input type="date" class="form-control fecha-formato" id="fechaExamen" placeholder="INGRESE LA FECHA DEL EXAMEN">
-                    <label for="fechaExamen" class="d-flex justify-content-center">FECHA DE EXAMEN:</label>
-                </div>
-
-                <div class="form-group col-md-3">
-                    <input type="text" class="form-control read" id="firmaAlumno" readonly>
-                    <label class="d-flex justify-content-center" for="firmaAlumno">FIRMA DEL ALUMNO:</label>
-                    <p class="d-flex justify-content-center texto-pequeno">(SI ES MENOR, PADRE O TUTOR)</p>
-                </div>
-
-            </div>
-
-            <div class="form-row d-flex justify-content-center ">
-
-                <div class="form-group col-md-3">
-                    <input type="text" class="form-control read" id="firmaProfesor" readonly>
-                    <label class="d-flex justify-content-center" for="firmaProfesor">FIRMA DEL PROFESOR:</label>
-                </div>
-
-            </div>
 
                 <h3 class="text-center">PARA USO EXCLUSIVO DEL EXAMINADOR</h3>
                 <div class="d-flex col-md-12 justify-content-center">
@@ -250,51 +262,67 @@
                     <div class="cuadro-tabla"></div>
                 </div>
 
-            <div class="form-row d-flex justify-content-between align-items-center ">
+                <div class="form-row d-flex justify-content-between align-items-center ">
 
-                <div class="form-group col-md-2 d-flex align-items-center">
-                    <label for="nombreAlumno">APROBADO:</label>
-                    <div class="cuadro"></div>
+                    <div class="form-group col-md-2 d-flex align-items-center">
+                        <label for="nombreAlumno">APROBADO:</label>
+                        <div class="cuadro"></div>
+                    </div>
+
+                    <div class="form-group col-md-3 mt-4">
+                        <input type="text" class="form-control read" readonly>
+                        <label class="d-flex justify-content-center" for="firmaExaminador">FIRMA DEL EXAMINADOR:</label>
+                    </div>
+
+                    <div class="form-group col-md-2 d-flex align-items-center">
+                        <label for="nombreAlumno">REPROBADO:</label>
+                        <div class="cuadro"></div>
+                    </div>
+
                 </div>
 
-                <div class="form-group col-md-3 mt-4">
-                    <input type="text" class="form-control read" readonly>
-                    <label class="d-flex justify-content-center" for="firmaExaminador">FIRMA DEL EXAMINADOR:</label>
-                </div>
+            </form>
+        </div>
 
-                <div class="form-group col-md-2 d-flex align-items-center">
-                    <label for="nombreAlumno">REPROBADO:</label>
-                    <div class="cuadro"></div>
-                </div>
-
-            </div>
-
-        </form>
+    </div>
+    <div class="container">
+        <div class="mt-2">
+            <a href="menu.html" class="btn btn-secondary mb-4"><i class="fa-solid fa-house"></i> Inicio</a>
+            <a href="buscar-alumno.html" class="btn btn-warning mb-4"><i class="fa-solid fa-magnifying-glass"></i>
+                Buscar alumno</a>
+            <button type="button" class="btn btn-success mb-4" id="enviarForm"><i class="fa-solid fa-floppy-disk"></i>
+                Guardar cambios</button>
+            <button type="button" class="btn btn-primary mb-4" id="crearPDF"><i class="fa-solid fa-file-pdf"></i>
+                PDF</button>
+        </div>
     </div>
 
-</div>
-<div class="container">
-    <div class="mt-2">
-        <a href="menu.html" class="btn btn-secondary mb-4"><i class="fa-solid fa-house"></i> Inicio</a>
-        <a href="buscar-alumno.html" class="btn btn-warning mb-4"><i class="fa-solid fa-magnifying-glass"></i> Buscar alumno</a>
-        <button type="button" class="btn btn-success mb-4" id="enviarForm"><i class="fa-solid fa-floppy-disk"></i> Guardar cambios</button>
-        <button type="button" class="btn btn-primary mb-4" id="crearPDF"><i class="fa-solid fa-file-pdf"></i> PDF</button>
-    </div>
-</div>
 
-
-<!-- Agrega el enlace a Bootstrap JS y Popper.js, asegúrate de incluirlos en el orden correcto -->
+    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="../js/crearAlumno.js" type="module"></script>
-    <script src="../js/editarAlumno.js" type="module"></script>
+
+    <!-- Módulos -->
+    <script type="module">
+        import app from '../js/firebaseConfig.js';
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getDatabase, ref, push, get } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+        import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+
+        // Verifica que la importación funcione
+        console.log('Firebase app:', app);
+    </script>
+    <script type="module" src="../js/crearAlumno.js"></script>
+    <script type="module" src="../js/editarAlumno.js"></script>
     <script src="../js/calcularTiempo.js"></script>
     <script src="../js/gradoParaSubir.js"></script>
-    <script src="../js/crearPDF.js" type="module"></script>
+    <script type="module" src="../js/crearPDF.js"></script>
     <script src="../js/mayusculas.js"></script>
+
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="module" src="../js/sweetalert-utils.js"></script>
 </body>
+
 </html>

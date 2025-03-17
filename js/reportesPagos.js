@@ -1,9 +1,8 @@
 import app from './firebaseConfig.js';
 import { getDatabase, ref, onValue, remove, update, query, orderByChild, equalTo, get } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
 import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
-// Update XLSX import
 import * as XLSX from 'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/+esm';
-import { mostrarExito, mostrarError, mostrarAdvertencia } from '../sweetalert-utils.js';
+import { mostrarExito, mostrarError, mostrarAdvertencia } from './sweetalert-utils.js';
 
 const database = getDatabase(app);
 const alumnosRef = ref(database, 'alumnos');
@@ -116,9 +115,9 @@ function actualizarTablaPagos() {
                 <td>${pago.tipo}</td>
                 <td>
                     <span class="badge badge-${pago.estado === 'al_corriente' ? 'success' :
-                                               pago.estado === 'adeudo' ? 'danger' : 'secondary'}">
+                pago.estado === 'adeudo' ? 'danger' : 'secondary'}">
                         ${pago.estado === 'al_corriente' ? 'Al día' :
-                           pago.estado === 'adeudo' ? 'Adeudado' : 'Sin Pago'}
+                pago.estado === 'adeudo' ? 'Adeudado' : 'Sin Pago'}
                     </span>
                 </td>
                 <td>
@@ -238,7 +237,7 @@ function exportarExcel() {
         Faltante: parseFloat(pago.faltante),
         Tipo: pago.tipo,
         Estado: pago.estado === 'al_corriente' ? 'Al día' :
-               pago.estado === 'adeudo' ? 'Adeudado' : 'Sin Pago'
+            pago.estado === 'adeudo' ? 'Adeudado' : 'Sin Pago'
     }));
 
     // Crear libro de Excel
@@ -437,11 +436,11 @@ function calcularEstadoPagoFamilia(familiaId) {
         .filter(pago => {
             const fechaPago = new Date(pago.fecha || pago.fecha_pago);
             return fechaPago >= fechaInicioPago &&
-                   fechaPago.getMonth() === fechaActual.getMonth() &&
-                   fechaPago.getFullYear() === fechaActual.getFullYear();
+                fechaPago.getMonth() === fechaActual.getMonth() &&
+                fechaPago.getFullYear() === fechaActual.getFullYear();
         })
         .sort((a, b) => new Date(b.fecha || b.fecha_pago) - new Date(a.fecha || a.fecha_pago))
-        [0];
+    [0];
 
     // Calcular total pagado desde enero 2025
     const totalPagado = pagosFamilia.reduce((total, pago) => {
@@ -559,7 +558,7 @@ function filtrarPagos() {
                     const alumno = alumnosData[alumnoId];
                     return alumno &&
                         (`${alumno.nombre} ${alumno.apellidoPaterno} ${alumno.apellidoMaterno}`)
-                        .toLowerCase().includes(busqueda);
+                            .toLowerCase().includes(busqueda);
                 });
 
             // Filtro por estado
@@ -619,9 +618,9 @@ function filtrarPagos() {
             <td>${pago.tipo}</td>
             <td>
                 <span class="badge badge-${pago.estado === 'al_corriente' ? 'success' :
-                                           pago.estado === 'adeudo' ? 'danger' : 'secondary'}">
+            pago.estado === 'adeudo' ? 'danger' : 'secondary'}">
                     ${pago.estado === 'al_corriente' ? 'Al día' :
-                       pago.estado === 'adeudo' ? 'Adeudado' : 'Sin Pago'}
+            pago.estado === 'adeudo' ? 'Adeudado' : 'Sin Pago'}
                 </span>
             </td>
             <td>
